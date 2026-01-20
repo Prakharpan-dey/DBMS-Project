@@ -7,110 +7,68 @@ Scope: DBMS Lab Project - Basic Implementation
 2. SYSTEM ENTITIES
 2.1 STUDENT
 Roll_No (Primary Key)
-
 Name
-
 Email (college email only)
-
 Password
-
 Department
-
 Semester
-
 Status (Pending/Approved/Blocked)
 
 2.2 COURSE
 Course_ID (Primary Key)
-
 Course_Name
-
 Credits
-
 Department
-
 Semester
-
 Status (Active/Inactive)
 
 2.3 ADMIN
 Admin_ID (Primary Key)
-
 Name
-
 Email
-
 Password
 
 3. BASIC FUNCTIONALITIES
 3.1 STUDENT CAN:
 Register with college email
-
 Login to system
-
 View available courses (filter by department/semester)
-
 Enroll in courses
-
 View enrolled courses
 
 3.2 ADMIN CAN:
 Login to system
-
 Add/Update/Delete courses
-
 Approve/Block students
-
 Assign courses to departments
 
 5. USER INTERFACES
 5.1 STUDENT PAGES
 Registration Page
-
 Roll number, name, email, password, department, semester
-
 Only college emails allowed
-
 Login Page
-
 Email and password
-
 Student Dashboard
-
 Welcome message
-
 List of available courses with "Enroll" button
-
 List of enrolled courses
 
 5.2 ADMIN PAGES
 Login Page
-
 Admin ID and password
-
 Admin Dashboard
-
 Quick stats
-
 Links to manage courses and students
-
 Manage Courses Page
-
 Add new course form
-
 List of existing courses with edit/delete options
-
 Manage Students Page
-
 List of students with approve/block options
 
 6. BASIC BUSINESS RULES
 Students can only register with college email
-
 Students must be approved by admin before accessing portal
-
 Students can enroll in courses matching their department and semester
-
 One student cannot enroll in same course twice
-
 Admin can make courses active/inactive
