@@ -271,9 +271,12 @@ CREATE PROCEDURE sp_get_courses_by_ids_json(IN p_ids_json JSON)
 BEGIN
   SELECT Course_ID
   FROM COURSE
-  WHERE Course_ID IN (
+  WHERE Course_ID COLLATE utf8mb4_0900_ai_ci IN (
     SELECT jt.course_id
-    FROM JSON_TABLE(p_ids_json, '$[*]' COLUMNS (course_id VARCHAR(50) PATH '$')) AS jt
+    FROM JSON_TABLE(
+      p_ids_json,
+      '$[*]' COLUMNS (course_id VARCHAR(50) COLLATE utf8mb4_0900_ai_ci PATH '$')
+    ) AS jt
   );
 END$$
 
