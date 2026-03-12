@@ -1,108 +1,188 @@
 1. PROJECT OVERVIEW
-System Name: College Course Portal
-Purpose: Basic platform for students to view/enroll in courses and admins to manage them
+System Name: College Course Allotment Portal
+Purpose: Comprehensive platform for students to express course preferences and receive allotments, with admin controls for course and student management
 Users: Students, Administrators
-Scope: DBMS Lab Project - Basic Implementation
+Tech Stack: Node.js/Express (Backend), React with Vite (Frontend), MySQL (Database), TypeScript (Language)
+Scope: DBMS Lab Project - Full-stack implementation with preference-based course allotment system
 
 
 
 2. SYSTEM ENTITIES
-2.1 STUDENT
-Roll_No (Primary Key)
-Name
-Email (unique, college email only)
-Password
-Department
-Semester
-Status (Pending/Approved/Blocked)
+2.1 DEPARTMENT
+Department_ID (Primary Key, Auto-increment)
+Department_Name (Unique)
 
-2.2 COURSE
-Course_ID (Primary Key)
+2.2 STUDENT
+Roll_No (Primary Key, String)
+Name
+Email (Unique)
+Password (Hashed with bcrypt)
+Department_ID (Foreign Key -> DEPARTMENT)
+Semester
+CGPA
+Status (ENUM: active, inactive, graduated, suspended)
+
+2.3 COURSE
+Course_ID (Primary Key, String)
 Course_Name
 Credits
-Department
+Department_ID (Foreign Key -> DEPARTMENT)
 Semester
-Status (Active/Inactive)
+Status (ENUM: active, inactive, archived)
+Capacity
+Slot
+Faculty
+Course_Type (ENUM: core, elective)
+Elective_Slot
+Max_Choices
 
-2.3 ADMIN
-Admin_ID (Primary Key)
+2.4 ADMIN
+Admin_ID (Primary Key, Auto-increment)
 Name
-Email (unique)
-Password
-Department
+Email (Unique)
+Password (Hashed with bcrypt)
+
+2.5 PREFERENCE (Student course preferences before allotment)
+Student_Roll_No (Foreign Key -> STUDENT)
+Course_Course_ID (Foreign Key -> COURSE)
+Rank (Priority/Choice number)
+Primary Key: (Student_Roll_No, Course_Course_ID)
+
+2.6 ENROLLMENT (Allotment results)
+Student_Roll_No (Foreign Key -> STUDENT)
+Course_Course_ID (Foreign Key -> COURSE)
+Enrollment_Date
+Grade
+Status (ENUM: allotted, waitlisted)
+Primary Key: (Student_Roll_No, Course_Course_ID)
+
+2.7 ADM_IN_ACCESS (Admin-Course relationship)
+Admin_ID (Foreign Key -> ADMIN)
+Course_ID (Foreign Key -> COURSE)
+Primary Key: (Admin_ID, Course_ID)
 
 
 
 3. FUNCTIONAL REQUIREMENTS
 3.1 STUDENT FUNCTIONS
-Register using college email ID only
-Login only after admin approval
-View available courses filtered by:
+Register using college email ID
+Login after account creation (no admin approval required)
+View available courses with filters:
   Department
   Semester
   Course status (Active only)
-Enroll in available courses
-View enrolled courses
-Cannot enroll in the same course more than once
+  Course type (Core/Elective)
+Submit course preferences with rankings
+View submitted preferences before allotment
+View allotment results (Allotted/Waitlisted status)
+View enrolled courses with grades
+Cannot duplicate preferences for the same course
+Account status management (active/inactive/graduated/suspended)
 
 3.2 ADMIN FUNCTIONS
 Login to system
-Add new courses
-Update existing course details
-Activate or deactivate courses
+Add new courses with all details
+Update existing course information
+Activate, deactivate, or archive courses
 Delete courses
-View list of registered students
-Approve or block student accounts
-
-
-
-4. NON-FUNCTIONAL REQUIREMENTS
-4.1 Security Requirements
-Passwords must be stored in encrypted/hashed format
+View list of all registered students
+View and update student status (active/inactive/graduated/suspended)
+Trigger course allotment process
+View allothashed using bcrypt algorithm
+JWT-based authentication and authorization
 Only authenticated users can access the system
+Role-based access control (Student vs Admin)
 Students cannot access admin functionalities
+Secure API endpoints with middleware protection
 
-4.2 Performance Requirements
-System should handle multiple student logins simultaneously
+
+
+4. NON FUNCTIONAL REQUIREMENTS
+4.1 Performance Requirements
+System should handle concurrent student logins and preference submissions
 Course listing should load within acceptable response time
+Preference submission should be atomic and consistent
+Allotment process should complete efficiently for large datasets
 
-4.3 Data Integrity Requirements
-Duplicate student registration using the same email is not allowed
-A student cannot enroll in the same course more than once
-Only active courses are available for enrollment
+4.2 Data Integrity Requirements
+Duplicate student registration using same email prevented at database level
+Unique email constraint enforced for both students and admins
+A student cannot duplicate preferences for the same course
+Only active courses available for preference submission
+Referential integrity maintained through foreign keys
+Cascading deletes for course data
 
-4.4 Usability Requirements
-Simple and user-friendly interface
-Easy navigation between pages
-Clear messages for approval status and enrollment actions
+4.3 Usability Requirements
+Intuitive user interface for both students and admins
+Clear navigation between different sections
+Real-time feedback for form submissions
+Visual indication of preference rankings
+Clear status displays (allotted vs waitlisted)
+Responsive design for multiple screen sizes
 
-4.5 Reliability Requirements
-System should prevent data loss during failures
-Database constraints must ensure consistency of student and enrollment data
+4.4 Reliability Requirements
+Database transactions for preference and allotment operations
+Proper error handling and validation
 
 
 
-5. USER INTERFACES
+5. PAGES
 5.1 STUDENT PAGES
-Registration Page
-  Roll number, name, email, password, department, semester
-  Only college emails allowed
-Login Page
-  Email and password
+Authentication Pages
+  Login Page: Email and password input with forgot password link
+  Signup Page: Roll number, name, email, password, department, semester
+
 Student Dashboard
-  Accessible only after admin approval
-  Welcome message
-  List of available courses with "Enroll" button
-  List of enrolled courses
+  Welcome message with student information
+  Quick navigation to courses and preferences
+  Display of current enrollment status
+
+Available Courses Page
+  Filter by department, semester, course type
+  Search functionality
+  Display course details (name, credits, capacity, slot, faculty)
+  "Add to Preferences" functionality
+
+My Preferences Page
+  Ranked list of submitted preferences
+  Ability to view, update, or remove preferences
+  Preference ranking/priority display
+  Confirmation of submission status
+
+Allotment Result Page
+  Display of allotted courses with grade field
+  Display of waitlisted courses
+  Summary of enrollment status
+
+Profile Page
+  View student profile information
+  Display account status
+  Update personal information options
 
 5.2 ADMIN PAGES
-Login Page
-  Admin ID and password
+Admin Login Page
+  Admin ID and password input
+
 Admin Dashboard
-  Quick stats
-  Links to manage courses and students
-Manage Courses Page
-  Add new course form
-  List of existing courses with edit/delete options
+  Quick statistics (total students, total courses, etc.)
+  Navigation links to manage students, courses, and view allotments
+
 Manage Students Page
-  List of students with approve/block options
+  List of all registered students with details
+  Search and filter options
+  Change student status (active/inactive/graduated/suspended)
+  View student enrollment history
+
+Manage Courses Page
+  Form to add new courses with all required fields
+  List of existing courses with details
+  Edit course information
+  Delete course option
+  Activate/deactivate/archive course status
+
+Manage Allotments Page
+  View allotment process controls
+  Trigger allotment algorithm
+  Display allotment results with statistics
+  View preference vs allotment mappington
+  List of enrolled courses
