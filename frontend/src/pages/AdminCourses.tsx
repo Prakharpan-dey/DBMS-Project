@@ -282,26 +282,26 @@ export function AdminCourses() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Course Management</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Course Management</h1>
           <p className="text-muted-foreground mt-1">Add, edit, and manage courses</p>
         </div>
-        <Button className="bg-indigo-600 hover:bg-indigo-700" onClick={() => handleOpenForm()}>
+        <Button onClick={() => handleOpenForm()}>
           <Plus size={18} className="mr-2" />
           Add Course
         </Button>
       </div>
 
-      {error && <p className="text-sm text-destructive bg-red-50 p-3 rounded-md">{error}</p>}
-      {success && <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">{success}</p>}
+      {error && <p className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">{error}</p>}
+      {success && <p className="text-sm text-primary bg-primary/10 p-3 rounded-md">{success}</p>}
 
       {/* Add/Edit Course Form */}
       {showForm && (
-        <Card className="bg-blue-50 border-blue-200">
+        <Card className="bg-primary/5 border-primary/20">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle>{editingId ? 'Edit Course' : 'Add New Course'}</CardTitle>
             <button
               onClick={handleCloseForm}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-muted-foreground hover:text-foreground"
             >
               <X size={20} />
             </button>
@@ -484,7 +484,7 @@ export function AdminCourses() {
               )}
 
               <div className="flex gap-2 pt-4">
-                <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={formLoading}>
+                <Button type="submit" disabled={formLoading}>
                   {formLoading ? 'Saving...' : editingId ? 'Update Course' : 'Create Course'}
                 </Button>
                 <Button type="button" variant="outline" onClick={handleCloseForm}>
@@ -545,19 +545,19 @@ export function AdminCourses() {
                   </thead>
                   <tbody>
                     {paginatedCourses.map((course) => (
-                      <tr key={course.course_id} className="border-b hover:bg-gray-50">
-                        <td className="py-3 px-3 font-mono font-bold text-indigo-600">{course.course_id}</td>
+                      <tr key={course.course_id} className="border-b hover:bg-accent/50">
+                        <td className="py-3 px-3 font-mono font-bold text-primary">{course.course_id}</td>
                         <td className="py-3 px-3 font-medium">{course.course_name}</td>
                         <td className="py-3 px-3 text-muted-foreground text-xs">{course.faculty}</td>
                         <td className="py-3 px-3">{course.credits}</td>
                         <td className="py-3 px-3 text-xs text-muted-foreground">{course.slot}</td>
                         <td className="py-3 px-3">
-                          <span className="inline-flex items-center justify-center bg-blue-50 text-blue-700 px-3 py-1 rounded-full font-medium text-xs">
+                          <span className="inline-flex items-center justify-center bg-primary/10 text-primary px-3 py-1 rounded-full font-medium text-xs">
                             {course.capacity}
                           </span>
                         </td>
                         <td className="py-3 px-3">
-                          <span className="inline-flex items-center justify-center bg-green-50 text-green-700 px-2 py-1 rounded-full font-medium text-xs">
+                          <span className="inline-flex items-center justify-center bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full font-medium text-xs">
                             Active
                           </span>
                         </td>

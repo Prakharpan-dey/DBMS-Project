@@ -267,11 +267,10 @@ export function AdminStudents() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Student Management</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Student Management</h1>
           <p className="text-muted-foreground mt-1">Approve, reject, and manage student CGPAs</p>
         </div>
         <Button 
-          className="bg-indigo-600 hover:bg-indigo-700"
           onClick={() => setShowBulkUpload(!showBulkUpload)}
         >
           <Upload size={18} className="mr-2" />
@@ -279,17 +278,17 @@ export function AdminStudents() {
         </Button>
       </div>
 
-      {error && <p className="text-sm text-destructive bg-red-50 p-3 rounded-md">{error}</p>}
-      {successMessage && <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">{successMessage}</p>}
+      {error && <p className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">{error}</p>}
+      {successMessage && <p className="text-sm text-primary bg-primary/10 p-3 rounded-md">{successMessage}</p>}
 
       {/* Bulk Upload Form */}
       {showBulkUpload && (
-        <Card className="bg-blue-50 border-blue-200">
+        <Card className="bg-primary/5 border-primary/20">
           <CardHeader className="flex flex-row items-center justify-between pb-3">
             <CardTitle>Bulk Upload CGPA (CSV)</CardTitle>
             <button
               onClick={() => setShowBulkUpload(false)}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-muted-foreground hover:text-foreground"
             >
               <X size={20} />
             </button>
@@ -313,7 +312,7 @@ export function AdminStudents() {
                 className="mt-2"
               />
               {uploadLoading && (
-                <p className="text-sm text-blue-600 mt-2">Uploading...</p>
+                <p className="text-sm text-primary mt-2">Uploading...</p>
               )}
             </div>
           </CardContent>
@@ -370,7 +369,7 @@ export function AdminStudents() {
                   </thead>
                   <tbody>
                     {paginatedStudents.map((student) => (
-                      <tr key={student.roll_no} className="border-b hover:bg-gray-50">
+                      <tr key={student.roll_no} className="border-b hover:bg-accent/50">
                         <td className="py-3 px-3 font-mono font-medium">{student.roll_no}</td>
                         <td className="py-3 px-3">{student.name}</td>
                         <td className="py-3 px-3 text-muted-foreground text-xs">{student.email}</td>
@@ -413,7 +412,7 @@ export function AdminStudents() {
                               Pending
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2 py-1 rounded text-xs font-medium">
+                            <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 px-2 py-1 rounded text-xs font-medium">
                               <CheckCircle2 size={12} />
                               Active
                             </span>
@@ -427,7 +426,6 @@ export function AdminStudents() {
                                   <Button
                                     size="sm"
                                     variant="default"
-                                    className="bg-green-600 hover:bg-green-700"
                                     disabled={actionLoading === student.roll_no}
                                     onClick={() => approveStudent(student.roll_no)}
                                   >

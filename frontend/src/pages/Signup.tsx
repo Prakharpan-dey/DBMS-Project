@@ -67,7 +67,7 @@ export function Signup() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-8 bg-[#F5F7FB]">
+      <div className="min-h-screen flex items-center justify-center p-8 bg-background">
         <AuthCard title="Signup successful" description="Awaiting admin approval. You can log in after approval.">
           <p className="text-muted-foreground">Redirecting to login…</p>
         </AuthCard>
@@ -76,7 +76,7 @@ export function Signup() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8 bg-[#F5F7FB]">
+    <div className="min-h-screen flex items-center justify-center p-8 bg-background">
       <AuthCard
         title="Create account"
         description="Register with your college details"

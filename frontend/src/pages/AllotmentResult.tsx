@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CheckCircle2, Clock, BookOpen, User2, Calendar } from 'lucide-react';
 
 interface CourseAllotment {
   course_id: string;
@@ -45,7 +46,7 @@ export function AllotmentResult() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Allotment Result</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Allotment Result</h1>
         <p className="text-muted-foreground">Loading…</p>
       </div>
     );
@@ -54,7 +55,7 @@ export function AllotmentResult() {
   if (error) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Allotment Result</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Allotment Result</h1>
         <p className="text-sm text-destructive">{error}</p>
       </div>
     );
@@ -63,7 +64,7 @@ export function AllotmentResult() {
   if (!data) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">Allotment Result</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Allotment Result</h1>
         <p className="text-muted-foreground text-sm">No allotment results available yet.</p>
       </div>
     );
@@ -140,27 +141,30 @@ export function AllotmentResult() {
           {groupCoursesBySlot(data.allotted).map(({ slot, courses }) => (
             <Card key={slot ?? 'core'}>
               <CardHeader>
-                <CardTitle>
-                  ✅ {slot ? slot : 'Core Courses'} (Allotted)
+                <CardTitle className="flex items-center gap-2">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  {slot ? slot : 'Core Courses'} — Allotted
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {courses.map((course) => (
-                    <div key={course.course_id} className="border rounded-md p-4">
+                    <div key={course.course_id} className="border border-primary/20 bg-primary/5 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="font-semibold">{course.course_id}</div>
                           <div className="text-sm text-muted-foreground">{course.course_name}</div>
-                          <div className="text-xs text-muted-foreground mt-2">
-                            📚 {course.credits} credits | 👨‍🏫 {course.faculty} | 🕐 {course.slot}
+                          <div className="text-xs text-muted-foreground mt-2 flex items-center gap-3">
+                            <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.credits} credits</span>
+                            <span className="flex items-center gap-1"><User2 className="h-3 w-3" /> {course.faculty}</span>
+                            <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {course.slot}</span>
                           </div>
                         </div>
                         <div className="text-right">
                           {course.preference_rank && (
-                            <div className="text-sm font-medium text-blue-600">Preference #{course.preference_rank}</div>
+                            <span className="inline-block text-xs font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">Pref #{course.preference_rank}</span>
                           )}
-                          <div className="text-xs text-green-600 mt-1">Allotted</div>
+                          <div className="text-xs font-medium text-primary mt-1.5">Allotted</div>
                         </div>
                       </div>
                     </div>
@@ -178,27 +182,30 @@ export function AllotmentResult() {
           {groupCoursesBySlot(data.waitlisted).map(({ slot, courses }) => (
             <Card key={slot ?? 'core'}>
               <CardHeader>
-                <CardTitle>
-                  ⏳ {slot ? slot : 'Core Courses'} (Waitlisted)
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-orange-500" />
+                  {slot ? slot : 'Core Courses'} — Waitlisted
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   {courses.map((course) => (
-                    <div key={course.course_id} className="border border-orange-200 bg-orange-50 rounded-md p-4">
+                    <div key={course.course_id} className="border border-orange-200 bg-orange-50 rounded-lg p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="font-semibold">{course.course_id}</div>
                           <div className="text-sm text-muted-foreground">{course.course_name}</div>
-                          <div className="text-xs text-muted-foreground mt-2">
-                            📚 {course.credits} credits | 👨‍🏫 {course.faculty} | 🕐 {course.slot}
+                          <div className="text-xs text-muted-foreground mt-2 flex items-center gap-3">
+                            <span className="flex items-center gap-1"><BookOpen className="h-3 w-3" /> {course.credits} credits</span>
+                            <span className="flex items-center gap-1"><User2 className="h-3 w-3" /> {course.faculty}</span>
+                            <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {course.slot}</span>
                           </div>
                         </div>
                         <div className="text-right">
                           {course.preference_rank && (
-                            <div className="text-sm font-medium text-blue-600">Preference #{course.preference_rank}</div>
+                            <span className="inline-block text-xs font-medium text-orange-700 bg-orange-100 px-2 py-0.5 rounded-full">Pref #{course.preference_rank}</span>
                           )}
-                          <div className="text-xs text-orange-600 mt-1">Waitlisted</div>
+                          <div className="text-xs font-medium text-orange-600 mt-1.5">Waitlisted</div>
                         </div>
                       </div>
                     </div>

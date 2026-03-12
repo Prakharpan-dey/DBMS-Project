@@ -33,7 +33,7 @@ export function AdminDashboard() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-muted-foreground">Loading…</p>
       </div>
     );
@@ -42,7 +42,7 @@ export function AdminDashboard() {
   if (error) {
     return (
       <div className="space-y-6">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-sm text-destructive">{error}</p>
       </div>
     );
@@ -51,7 +51,7 @@ export function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
         <p className="text-muted-foreground mt-1">Overview of course allotment system</p>
       </div>
 
@@ -138,10 +138,10 @@ export function AdminDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <p className="text-sm font-medium text-muted-foreground">Seats Allotted</p>
-              <p className="text-4xl font-bold text-green-600">{stats?.seats_allotted ?? 0}</p>
-              <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <p className="text-4xl font-bold text-primary">{stats?.seats_allotted ?? 0}</p>
+              <div className="w-full bg-muted rounded-full h-2 mt-2">
                 <div
-                  className="bg-green-600 h-2 rounded-full"
+                  className="bg-primary h-2 rounded-full"
                   style={{
                     width: `${
                       stats?.total_capacity && stats.total_capacity > 0
@@ -156,7 +156,7 @@ export function AdminDashboard() {
             <div className="space-y-2">
               <p className="text-sm font-medium text-muted-foreground">Seats Waitlisted</p>
               <p className="text-4xl font-bold text-orange-600">{stats?.seats_waitlisted ?? 0}</p>
-              <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div className="w-full bg-muted rounded-full h-2 mt-2">
                 <div
                   className="bg-orange-600 h-2 rounded-full"
                   style={{
@@ -175,7 +175,7 @@ export function AdminDashboard() {
               <p className="text-4xl font-bold text-blue-600">
                 {Math.max(0, (stats?.total_capacity ?? 0) - (stats?.seats_allotted ?? 0) - (stats?.seats_waitlisted ?? 0))}
               </p>
-              <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+              <div className="w-full bg-muted rounded-full h-2 mt-2">
                 <div
                   className="bg-blue-600 h-2 rounded-full"
                   style={{

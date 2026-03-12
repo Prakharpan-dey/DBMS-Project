@@ -18,7 +18,7 @@ import { AdminAllotment } from '@/pages/AdminAllotment';
 
 function ForgotPassword() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-8 bg-[#F5F7FB]">
+    <div className="min-h-screen flex items-center justify-center p-8 bg-background">
       <p className="text-muted-foreground">Forgot password – Phase 2.</p>
     </div>
   );

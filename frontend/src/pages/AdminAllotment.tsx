@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, CheckCircle2, Zap, Trash2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Zap, Trash2, Clock } from 'lucide-react';
 
 interface AllotmentResult {
   students_processed: number;
@@ -90,22 +90,22 @@ export function AdminAllotment() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Course Allotment</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Course Allotment</h1>
         <p className="text-muted-foreground mt-1">Run allotment algorithm and manage results</p>
       </div>
 
-      {error && <p className="text-sm text-destructive bg-red-50 p-3 rounded-md">{error}</p>}
-      {success && <p className="text-sm text-green-600 bg-green-50 p-3 rounded-md">{success}</p>}
+      {error && <p className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">{error}</p>}
+      {success && <p className="text-sm text-primary bg-primary/10 p-3 rounded-md">{success}</p>}
 
       {/* Info Card */}
-      <Card className="bg-blue-50 border-blue-200">
+      <Card className="bg-primary/5 border-primary/20">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-900">
+          <CardTitle className="flex items-center gap-2">
             <AlertCircle size={20} />
             Important Information
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-blue-800 text-sm space-y-2">
+        <CardContent className="text-sm space-y-2 text-muted-foreground">
           <p>• All active students must have CGPA assigned before running allotment</p>
           <p>• The allotment algorithm sorts students by CGPA (highest first)</p>
           <p>• Students are allotted courses based on their ranked preferences</p>
@@ -124,7 +124,6 @@ export function AdminAllotment() {
           <div className="flex gap-3">
             <Button
               size="lg"
-              className="bg-indigo-600 hover:bg-indigo-700"
               disabled={loading}
               onClick={runAllotment}
             >
@@ -138,7 +137,6 @@ export function AdminAllotment() {
                   variant={published ? 'default' : 'outline'}
                   disabled={published}
                   onClick={publishResults}
-                  className={published ? 'bg-green-600' : ''}
                 >
                   <CheckCircle2 size={18} className="mr-2" />
                   {published ? 'Published' : 'Publish Results'}
@@ -173,14 +171,14 @@ export function AdminAllotment() {
                 {/* Students Processed */}
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Students Processed</p>
-                  <p className="text-4xl font-bold text-blue-600">{result.students_processed}</p>
+                  <p className="text-4xl font-bold text-primary">{result.students_processed}</p>
                   <p className="text-xs text-muted-foreground">Total applicants</p>
                 </div>
 
                 {/* Total Allotted */}
                 <div className="space-y-2">
                   <p className="text-sm font-medium text-muted-foreground">Courses Allotted</p>
-                  <p className="text-4xl font-bold text-green-600">{result.total_allotted}</p>
+                  <p className="text-4xl font-bold text-primary">{result.total_allotted}</p>
                   <p className="text-xs text-muted-foreground">Successful allotments</p>
                 </div>
 
@@ -195,13 +193,13 @@ export function AdminAllotment() {
           </Card>
 
           {/* Status Info */}
-          <Card className={`border-2 ${published ? 'border-green-200 bg-green-50' : 'border-orange-200 bg-orange-50'}`}>
+          <Card className={`border-2 ${published ? 'border-primary/20 bg-primary/5' : 'border-orange-200 bg-orange-50'}`}>
             <CardHeader>
-              <CardTitle className={published ? 'text-green-900' : 'text-orange-900'}>
-                {published ? '✅ Results Published' : '⏳ Results Not Yet Published'}
+              <CardTitle className={published ? 'text-foreground flex items-center gap-2' : 'text-orange-900 flex items-center gap-2'}>
+                {published ? <><CheckCircle2 className="h-5 w-5 text-primary" /> Results Published</> : <><Clock className="h-5 w-5" /> Results Not Yet Published</>}
               </CardTitle>
             </CardHeader>
-            <CardContent className={published ? 'text-green-800' : 'text-orange-800'}>
+            <CardContent className={published ? 'text-muted-foreground' : 'text-orange-800'}>
               {published ? (
                 <p>Students can now view their allotment results in the "Allotment Result" section.</p>
               ) : (

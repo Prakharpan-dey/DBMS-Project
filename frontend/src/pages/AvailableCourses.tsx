@@ -136,7 +136,10 @@ export function AvailableCourses() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Available Courses</h1>
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">Available Courses</h1>
+        <p className="text-muted-foreground mt-1">Browse and add courses to your preferences.</p>
+      </div>
       <div className="flex flex-wrap gap-4 items-center">
         <Input
           placeholder="Search by code, name, department..."
@@ -166,7 +169,7 @@ export function AvailableCourses() {
         </select>
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
-      {success && <p className="text-sm text-green-600">{success}</p>}
+      {success && <p className="text-sm text-primary">{success}</p>}
       {loading ? (
         <p className="text-muted-foreground">Loading courses...</p>
       ) : groupedCourses.length === 0 ? (
@@ -222,7 +225,7 @@ export function AvailableCourses() {
                                     <div
                                       className={cn(
                                         'h-full rounded-full',
-                                        c.capacity === 0 ? 'bg-muted' : c.seats_available === 0 ? 'bg-destructive' : c.seats_available < c.capacity / 2 ? 'bg-amber-500' : 'bg-green-500'
+                                        c.capacity === 0 ? 'bg-muted' : c.seats_available === 0 ? 'bg-destructive' : c.seats_available < c.capacity / 2 ? 'bg-amber-500' : 'bg-emerald-500'
                                       )}
                                       style={{ width: c.capacity ? `${(c.seats_available / c.capacity) * 100}%` : '0%' }}
                                     />

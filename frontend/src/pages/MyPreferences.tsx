@@ -132,7 +132,7 @@ export function MyPreferences() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">My Preferences</h1>
+        <h1 className="text-2xl font-bold tracking-tight">My Preferences</h1>
         <p className="text-muted-foreground">Loading…</p>
       </div>
     );
@@ -141,16 +141,19 @@ export function MyPreferences() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">My Preferences</h1>
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">My Preferences</h1>
+          <p className="text-muted-foreground mt-1">Rank your course choices by priority.</p>
+        </div>
         {deadline && (
-          <div className={`text-sm font-medium ${!canEdit ? 'text-destructive' : 'text-orange-600'}`}>
-            {!canEdit ? '🔒 Deadline Passed' : `⏰ ${timeRemaining} remaining`}
+          <div className={`text-sm font-medium px-3 py-1.5 rounded-full ${!canEdit ? 'text-destructive bg-destructive/10' : 'text-orange-700 bg-orange-100'}`}>
+            {!canEdit ? 'Deadline Passed' : `${timeRemaining} remaining`}
           </div>
         )}
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}
       {!canEdit && !error && (
-        <p className="text-sm text-amber-600 bg-amber-50 p-3 rounded-md">
+        <p className="text-sm text-amber-700 bg-amber-50 border border-amber-200 p-3 rounded-lg">
           Preference submission deadline has passed. You can no longer edit your preferences.
         </p>
       )}
